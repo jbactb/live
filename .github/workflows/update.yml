@@ -1,0 +1,20 @@
+name: Update Forked Repo
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天定时运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Check for Updates
+        run: |
+          git remote add upstream https://github.com/fanmingming/live.git
+          git fetch upstream
+          git merge --no-edit upstream/master
+          git push origin master
